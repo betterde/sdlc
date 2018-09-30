@@ -4,8 +4,60 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5621a74f906b4966f1cb75c93f813e60",
+    "content-hash": "e49d111612fd37947515b1c54c934413",
     "packages": [
+        {
+            "name": "betterde/comment",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/betterde/comment.git",
+                "reference": "8171f7a157b0d89db7f7266c89ed11f8a6026d40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/betterde/comment/zipball/8171f7a157b0d89db7f7266c89ed11f8a6026d40",
+                "reference": "8171f7a157b0d89db7f7266c89ed11f8a6026d40",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "illuminate/database": "5.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Betterde\\Comment\\Providers\\CommentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Betterde\\Comment\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/CommentHelper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "George",
+                    "email": "george@betterde.com"
+                }
+            ],
+            "description": "Add comment content to migration file",
+            "time": "2018-09-20T03:59:43+00:00"
+        },
         {
             "name": "betterde/response",
             "version": "1.2.0",
