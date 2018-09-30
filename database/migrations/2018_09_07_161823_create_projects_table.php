@@ -15,12 +15,15 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->char('type');
-            $table->string('version');
+            $table->string('name')->comment('名称');
+            $table->string('description')->default('')->comment('描述');
+            $table->unsignedInteger('type_id')->index()->comment('类型ID');
+            $table->unsignedInteger('company_id')->index()->comment('公司ID');
+            $table->unsignedInteger('owner')->index()->comment('拥有者');
+            $table->string('cover')->default('')->comment('封面');
             $table->timestamps();
         });
+        table('projects', '项目信息数据表');
     }
 
     /**
