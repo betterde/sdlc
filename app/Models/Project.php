@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * 项目数据模型
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Project extends Model
 {
+    use SoftDeletes;
+
     /**
      * 定义不可批量填充字段
      *

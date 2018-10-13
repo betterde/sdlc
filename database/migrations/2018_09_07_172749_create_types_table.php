@@ -15,9 +15,9 @@ class CreateTypesTable extends Migration
     {
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('company_id')->index()->default(0)->comment('所属公司ID');
             $table->string('name')->comment('类型');
             $table->timestamps();
+            $table->softDeletes();
         });
         table('types', '项目类型数据表');
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * 项目类型数据模型
@@ -13,5 +14,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Type extends Model
 {
-    //
+    use SoftDeletes;
 }
