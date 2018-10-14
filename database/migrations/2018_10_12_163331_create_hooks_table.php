@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectsTable extends Migration
+class CreateHooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('hooks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->comment('名称');
             $table->string('description')->nullable()->comment('描述');
-            $table->unsignedInteger('type_id')->index()->comment('类型ID');
-            $table->unsignedInteger('owner')->index()->comment('拥有者');
-            $table->string('cover')->default('')->comment('封面');
-            $table->string('status', 10)->index()->comment('状态');
+            $table->string('url')->comment('地址');
+            $table->string('secret')->nullable()->comment('安全令牌');
+            $table->json('payload')->nullable()->comment('自定义内容');
+            $table->unsignedInteger('project_id')->index()->comment('项目ID');
             $table->timestamps();
-            $table->softDeletes();
         });
-        table('projects', '项目信息数据表');
+        table('hooks', 'WebHook');
     }
 
     /**
@@ -34,6 +33,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('hooks');
     }
 }
