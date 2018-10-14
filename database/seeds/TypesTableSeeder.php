@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Type data generator
+ * 项目类型模拟数据填充器
  *
  * Date: 2018/9/30
  * @author George
@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\DB;
 class TypesTableSeeder extends Seeder
 {
     /**
-     * Date: 2018/9/30
-     * @author George
+     * Run the database seeds.
+     *
+     * @return void
      */
     public function run()
     {
-        // Define the system default type name
         $names = [
             'API',
             'iOS',
@@ -30,23 +30,15 @@ class TypesTableSeeder extends Seeder
             'Other'
         ];
 
-        // Generate an array of attributes by querying the company id form database
-        $types = DB::table('companies')->pluck('id')->map(function ($company_id) use ($names) {
-            $company_types = [];
+        $types = [];
+        foreach ($names as $name) {
+            $types[] = [
+                'name' => $name,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+        }
 
-            foreach ($names as $name) {
-                $company_types[] = [
-                    'name' => $name,
-                    'company_id' => $company_id,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                ];
-            }
-
-            return $company_types;
-        });
-
-        // Insert the generated array of attributes into the types table
-        DB::table('types')->insert($types->collapse()->toArray());
+        DB::table('types')->insert($types);
     }
 }
