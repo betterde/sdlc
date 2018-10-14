@@ -1,9 +1,23 @@
 {
     "name": "betterde/sdlc",
     "description": "Software Development Life Cycle",
-    "keywords": ["sdlc"],
+    "keywords": ["sdlc", "pm", "php", "life-cycle"],
+    "homepage": "https://sdlc.betterde.com",
+    "version": "1.0.1",
     "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "George",
+            "email": "george@betterde.com",
+            "homepage": "sdlc.betterde.com"
+        }
+    ],
+    "support": {
+        "email": "george@betterde.com",
+        "issues": "https://github.com/betterde/sdlc/issues/new",
+        "docs": "https://sdlc.betterde.com/documents"
+    },
     "require": {
         "php": "^7.1.3",
         "ext-sockets": "*",
