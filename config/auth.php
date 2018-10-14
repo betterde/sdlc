@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'staff',
-        'passwords' => 'staffs'
+        'guard' => 'users',
+        'passwords' => 'users'
     ],
 
     /*
@@ -36,9 +36,9 @@ return [
     */
 
     'guards' => [
-        'staff' => [
-            'driver' => 'passport',
-            'provider' => 'staffs'
+        'users' => [
+            'driver' => 'jwt',
+            'provider' => 'users'
         ],
     ],
 
@@ -63,11 +63,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class
-        ],
-
-        'staffs' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Staff::class
         ]
     ],
 
@@ -87,8 +82,8 @@ return [
     */
 
     'passwords' => [
-        'staffs' => [
-            'provider' => 'staffs',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60
         ],

@@ -11,9 +11,9 @@
         "betterde/response": "^1.2",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
-        "laravel/passport": "^7.0",
         "laravel/tinker": "^1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "tymon/jwt-auth": "1.0.0-rc.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.5",

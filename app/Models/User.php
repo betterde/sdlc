@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -14,9 +15,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @author George
  * @package App\Models
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use Notifiable, SoftDeletes;
+
+    /**
+     * 禁用 Remember Token
+     *
+     * @var string
+     * Date: 2018/10/14
+     * @author George
+     */
+    protected $rememberTokenName = '';
 
     /**
      * The attributes that are mass assignable.
@@ -35,4 +45,28 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 定义JWT获取用户信息的主键
+     *
+     * Date: 2018/10/14
+     * @author George
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * 定义需要添加到Payload的内容
+     *
+     * Date: 2018/10/14
+     * @author George
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
