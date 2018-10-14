@@ -1,13 +1,25 @@
+import 'lodash';
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
 
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
  */
 
-require('./bootstrap');
+// import Echo from 'laravel-echo'
 
-window.Vue = require('vue');
+// window.Pusher = require('pusher-js');
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     encrypted: true
+// });
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,8 +27,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-const app = new Vue({
-    el: '#app'
-});
+new Vue({
+  router,
+  store,
+  render: (h) => h(App)
+}).$mount('#app');
