@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers;
 
 use App\Models\Staff;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 /**

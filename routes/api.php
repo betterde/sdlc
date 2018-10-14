@@ -12,9 +12,7 @@
 */
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-    Route::post('signin', 'AuthenticationController@signin');
+    Route::post('signin', 'AuthenticationController@signin')->name('auth.login');
 });
 
-Route::group(['prefix' => 'staff', 'namespace' => 'Staff'], function () {
-    Route::apiResource('project', 'ProjectController');
-});
+Route::apiResource('project', 'ProjectController');
