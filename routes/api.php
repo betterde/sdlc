@@ -12,7 +12,8 @@
 */
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-    Route::post('signin', 'AuthenticationController@signin')->name('auth.login');
+    Route::post('signin', 'AuthenticationController@signin')->name('auth.signin');
+    Route::post('signout', 'AuthenticationController@signout')->name('auth.signout');
 });
 
 Route::apiResource('project', 'ProjectController');
