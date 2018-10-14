@@ -1,3 +1,4 @@
+const path = require('path');
 const mix = require('laravel-mix');
 
 /*
@@ -11,5 +12,30 @@ const mix = require('laravel-mix');
  |
  */
 
+// mix.webpackConfig({
+// 	output: {
+// 		publicPath: "/",
+// 		// chunkFilename: 'js/chunks/[name].[chunkhash].js',
+// 		chunkFilename: 'js/chunks/[name].js'
+// 	},
+// 	resolve: {
+// 		alias: {
+// 			'components': 'assets/js/components',
+// 			'config': 'assets/js/config',
+// 			'lang': 'assets/js/lang',
+// 			'plugins': 'assets/js/plugins',
+// 			'vendor': 'assets/js/vendor',
+// 			'views': 'assets/js/views',
+// 			'dashboard': 'assets/js/views/dashboard',
+// 		},
+// 		modules: [
+// 			'node_modules',
+// 			path.resolve(__dirname, "resources")
+// 		]
+// 	},
+// });
+
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+
+mix.disableNotifications();

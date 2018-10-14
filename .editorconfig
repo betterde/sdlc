@@ -1,15 +1,37 @@
 root = true
 
 [*]
-charset = utf-8
+charset=utf-8
+indent_style = tab
+tab_width = 4
 end_of_line = lf
 insert_final_newline = true
-indent_style = space
-indent_size = 4
 trim_trailing_whitespace = true
 
-[*.md]
-trim_trailing_whitespace = false
+[*.{js,html,vue}]
+indent_style = tab
+tab_width = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.blade.php]
+indent_style = tab
+tab_width = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[.babelrc]
+indent_style = tab
+tab_width = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.bat]
+end_of_line = crlf
 
 [*.yml]
-indent_size = 2
+indent_style = tab
+tab_width = 2
