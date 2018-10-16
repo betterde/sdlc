@@ -31,15 +31,16 @@ class AuthenticationController extends Controller
         $this->middleware('auth:users', ['except' => ['signin']]);
     }
 
-    /**
-     * 用户登陆逻辑
-     *
-     * Date: 2018/10/14
-     * @author George
-     * @param Request $request
-     * @param Hasher $hasher
-     * @return \Illuminate\Http\JsonResponse
-     */
+	/**
+	 * 用户登陆逻辑
+	 *
+	 * Date: 2018/10/15
+	 * @author George
+	 * @param Request $request
+	 * @param Hasher $hasher
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function signin(Request $request, Hasher $hasher)
     {
         $credentials = $this->validate($request, [
@@ -51,7 +52,6 @@ class AuthenticationController extends Controller
         ]);
 
         $credentials[$this->username()] = array_pull($credentials, 'username');
-
         $provider = new EloquentUserProvider($hasher, User::class);
 
         /**

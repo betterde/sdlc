@@ -16,4 +16,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
     Route::post('signout', 'AuthenticationController@signout')->name('auth.signout');
 });
 
-Route::apiResource('project', 'ProjectController');
+Route::group(['middleware' => 'auth:users'], function () {
+	Route::apiResource('project', 'ProjectController');
+});

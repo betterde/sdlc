@@ -19,6 +19,7 @@ class CreateProjectMemberPivotTable extends Migration
             $table->unsignedInteger('role_id')->comment('角色ID');
             $table->timestamp('expires')->nullable()->comment('过期时间');
             $table->boolean('remind')->default(1)->comment('是否提醒');
+            $table->primary(['project_id', 'user_id']);
         });
         table('project_member_pivot', '项目和人员中间表');
     }

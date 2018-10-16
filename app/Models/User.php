@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * 用户数据模型
  *
- * Date: 2018/10/8
+ * Date: 2018/10/15
  * @author George
  * @package App\Models
  */

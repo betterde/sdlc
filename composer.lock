@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "445a5883abd919f044fe424b75b8d4b3",
+    "content-hash": "212117c9ed3ea11df2da6670a074c5ea",
     "packages": [
         {
             "name": "betterde/comment",

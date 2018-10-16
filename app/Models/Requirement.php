@@ -4,6 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 项目需求数据模型
+ *
+ * Date: 2018/10/15
+ * @author George
+ * @package App\Models
+ */
 class Requirement extends Model
 {
     //
