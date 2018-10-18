@@ -7,6 +7,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 项目逻辑控制器
@@ -31,22 +32,28 @@ class ProjectController extends Controller
 
         $query = Project::query();
 
-        $query->where('public', true);
+        $query->where(function ($query) use ($request) {
+			/**
+			 * @var Builder $query
+			 */
+        	$query->where('public', false);
+			if ($name = $request->get('name')) {
+				$query->where('name', 'like', "%{$name}%");
+			}
+		});
 
-		if ($name = $request->get('name')) {
-			$query->where('name', 'like', "%{$name}%");
-		}
-
-        $query->orWhereHas('members', function ($query) {
+        $query->orWhereHas('members', function ($query) use ($request) {
 			/**
 			 * @var Builder $query
 			 */
         	$query->where('user_id', Auth::user()->id);
+
+			if ($name = $request->get('name')) {
+				$query->where('name', 'like', "%{$name}%");
+			}
 		});
 
-        $result = $query->paginate($paginate);
-
-        return success($result);
+        return success($query->paginate($paginate));
     }
 
 	/**
@@ -66,10 +73,10 @@ class ProjectController extends Controller
         $user = Auth::user();
 
 		$attributes = $this->validate($request, [
-			'name' => 'required',
-			'description' => 'nullable',
+			'name' => 'required|string',
+			'description' => 'filled|string',
 			'type_id' => 'required|integer',
-			'cover' => 'nullable'
+			'cover' => 'filled|string'
 		], [
 			'name.required' => '请输入项目名称',
 			'type_id.required' => '请选择项目类型',
@@ -81,28 +88,39 @@ class ProjectController extends Controller
 		return stored($project);
     }
 
-    public function show($id)
+	/**
+	 * 获取项目详情
+	 *
+	 * Date: 2018/10/18
+	 * @author George
+	 * @param Project $project
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function show(Project $project)
     {
-        //
+    	return success($project);
     }
 
-    /**
-     * 更新项目信息
-     *
-     * Date: 2018/9/8
-     * @author George
-     * @param Request $request
-     * @param Project $project
-     * @return \Illuminate\Http\JsonResponse
-     */
+	/**
+	 * 更新项目信息
+	 *
+	 * Date: 2018/10/18
+	 * @author George
+	 * @param Request $request
+	 * @param Project $project
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function update(Request $request, Project $project)
     {
         $attributes = $this->validate($request, [
-            'name' => 'required',
-            'description' => 'nullable',
-            'cover' => 'nullable'
-        ], [
-            'name.required' => '请输入项目名称'
+            'name' => 'filled|string',
+            'description' => 'filled|string',
+            'type_id' => 'filled|integer',
+            'owner' => 'filled|integer',
+            'cover' => 'filled|string',
+            'status' => 'filled|string',
+            'public' => 'filled|boolean'
         ]);
 
         $project->update($attributes);
@@ -110,8 +128,18 @@ class ProjectController extends Controller
         return updated($project);
     }
 
-    public function destroy($id)
+	/**
+	 * 删除项目
+	 *
+	 * Date: 2018/10/18
+	 * @author George
+	 * @param Project $project
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+    public function destroy(Project $project)
     {
-        //
-    }
+		$project->delete();
+		return deleted();
+	}
 }

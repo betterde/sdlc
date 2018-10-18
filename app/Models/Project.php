@@ -26,6 +26,15 @@ class Project extends Model
     protected $guarded = ['id'];
 
 	/**
+	 * 定义隐藏字段
+	 *
+	 * @var array
+	 * Date: 2018/10/18
+	 * @author George
+	 */
+	protected $hidden = ['deleted_at'];
+
+	/**
 	 * 获取项目成员
 	 *
 	 * Date: 2018/10/15
@@ -34,6 +43,7 @@ class Project extends Model
 	 */
 	public function members()
 	{
-		return $this->belongsToMany(User::class, 'project_member_pivot', 'project_id', 'user_id', 'id', 'id');
+		return $this->belongsToMany(User::class, 'project_member_pivot', 'project_id', 'user_id', 'id', 'id')
+			->withPivot(['role_id', 'expires', 'remind']);
     }
 }
