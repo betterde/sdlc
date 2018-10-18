@@ -15,10 +15,13 @@ class CreateRepositoriesTable extends Migration
     {
         Schema::create('repositories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url')->comment('地址');
+            $table->unsignedInteger('project_id')->index()->comment('项目ID');
+            $table->string('url')->unique()->comment('地址');
+            $table->string('protocol')->comment('协议');
             $table->string('type')->comment('类型');
             $table->timestamps();
         });
+        table('repositories', '项目仓库数据表');
     }
 
     /**
