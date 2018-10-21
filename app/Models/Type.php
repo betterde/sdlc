@@ -15,4 +15,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Type extends Model
 {
     use SoftDeletes;
+
+	/**
+	 * 定义不可批量填充字段
+	 *
+	 * @var array
+	 * Date: 2018/9/21
+	 * @author George
+	 */
+	protected $guarded = ['id'];
 }

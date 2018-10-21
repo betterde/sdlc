@@ -34,7 +34,7 @@ class IssueController extends Controller
 			'severity' => 'filled|integer',
 			'version_id' => 'filled|integer',
 			'module_id' => 'filled|integer',
-			'author_id' => 'filled|integer',
+			'creator' => 'filled|integer',
 			'status' => 'filled|string',
 		]);
 
@@ -66,8 +66,8 @@ class IssueController extends Controller
 			$query->where('module_id', $module_id);
 		}
 
-		if ($author_id = $request->get('author_id')) {
-			$query->where('author_id', $author_id);
+		if ($creator = $request->get('creator')) {
+			$query->where('creator', $creator);
 		}
 		if ($status = $request->get('status')) {
 			$query->where('status', $status);
@@ -89,14 +89,15 @@ class IssueController extends Controller
     {
         $attributes = $this->validate($request, [
         	'project_id' => 'required|integer',
-        	'version_id' => 'required|integer',
-        	'module_id' => 'required|integer',
+        	'version_id' => 'filled|integer',
+        	'module_id' => 'filled|integer',
         	'title' => 'required|string',
         	'content' => 'required|string',
         	'priority' => 'required|integer',
         	'severity' => 'required|integer',
-        	'status' => 'required|string'
 		]);
+
+        $attributes['creator'] = Auth::id();
 
         $issue = Issue::create($attributes);
         return success($issue);
@@ -128,7 +129,6 @@ class IssueController extends Controller
         $attributes = $this->validate($request, [
         	'version_id' => 'filled|integer',
         	'module_id' => 'filled|integer',
-        	'author_id' => 'filled|integer',
         	'title' => 'filled|string',
         	'content' => 'filled|string',
         	'priority' => 'filled|integer',
@@ -136,7 +136,7 @@ class IssueController extends Controller
         	'status' => 'filled|string'
 		]);
 
-        if ($issue->author_id !== Auth::id()) {
+        if ($issue->creator !== Auth::id()) {
         	return failed('无权访问', 403);
 		}
 

@@ -18,12 +18,12 @@ class CreateIssuesTable extends Migration
             $table->unsignedInteger('project_id')->index()->comment('项目ID');
             $table->unsignedInteger('version_id')->index()->comment('版本ID');
             $table->unsignedInteger('module_id')->index()->comment('模块ID');
-            $table->unsignedInteger('author_id')->comment('发起人');
+            $table->unsignedInteger('creator')->comment('发起人');
             $table->string('title')->comment('标题');
             $table->text('content')->comment('内容');
             $table->unsignedTinyInteger('priority')->default(1)->comment('优先级');
             $table->unsignedTinyInteger('severity')->default(1)->comment('严重程度');
-            $table->string('status', 9)->comment('状态');
+            $table->string('status', 9)->default('open')->comment('状态');
             $table->timestamps();
         });
         table('issues', '项目问题反馈数据表');
