@@ -2,83 +2,113 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Module;
 use Illuminate\Http\Request;
 
+/**
+ * 项目模块逻辑控制器
+ *
+ * Date: 2018/10/25
+ * @author George
+ * @package App\Http\Controllers
+ */
 class ModuleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+	/**
+	 * 获取项目模块列表
+	 *
+	 * Date: 2018/10/25
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+    public function index(Request $request)
     {
-        //
+		$this->validate($request, [
+			'project_id' => 'required|integer',
+		]);
+
+		$query = Module::query()->where('project_id', $request->project_id);
+
+		if ($name = $request->get('name')) {
+			$query->where('name', 'like', "%{$name}%");
+		}
+
+		return success($query->paginate($request->get('paginate')));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * 创建项目模块
+	 *
+	 * Date: 2018/10/25
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function store(Request $request)
     {
-        //
+    	$attributes = $this->validate($request, [
+    		'name' => 'required|string',
+    		'project_id' => 'required|integer',
+    		'version_id' => 'filled|integer',
+    		'principal' => 'filled|integer'
+		]);
+
+    	$module = Module::create($attributes);
+
+    	return stored($module);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+	/**
+	 * 获取模块详情
+	 *
+	 * Date: 2018/10/25
+	 * @author George
+	 * @param Module $module
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function show(Module $module)
     {
-        //
+    	return success($module);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+	/**
+	 * 更新模块信息
+	 *
+	 * Date: 2018/10/25
+	 * @author George
+	 * @param Request $request
+	 * @param Module $module
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+    public function update(Request $request, Module $module)
     {
-        //
+		$attributes = $this->validate($request, [
+			'name' => 'filled|string',
+			'version_id' => 'filled|integer',
+			'principal' => 'filled|integer'
+		]);
+
+		$module->update($attributes);
+
+		return updated($module);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+	/**
+	 * 删除模块
+	 *
+	 * Date: 2018/10/25
+	 * @author George
+	 * @param Module $module
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+    public function destroy(Module $module)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $module->delete();
+        return deleted();
     }
 }

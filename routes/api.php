@@ -18,6 +18,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 
 Route::group(['middleware' => 'auth:users'], function () {
 	Route::apiResource('issue', 'IssueController');
+	Route::apiResource('module', 'ModuleController');
 	Route::apiResource('project', 'ProjectController');
 	Route::apiResource('version', 'VersionController');
 	Route::apiResource('repository', 'RepositoryController');
