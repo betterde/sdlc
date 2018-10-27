@@ -24,6 +24,7 @@ class CreateFilesTable extends Migration
             $table->unsignedInteger('project_id')->index()->comment('项目ID');
             $table->timestamps();
         });
+        table('files', '项目文件数据信息表');
     }
 
     /**
