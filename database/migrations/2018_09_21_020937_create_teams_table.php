@@ -22,6 +22,7 @@ class CreateTeamsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        table('teams', '团队信息数据表');
     }
 
     /**

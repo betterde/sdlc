@@ -23,6 +23,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedInteger('parent_id')->default(0)->comment('父级ID');
             $table->timestamps();
         });
+        table('documents', '项目文档信息数据表');
     }
 
     /**

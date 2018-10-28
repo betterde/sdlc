@@ -23,7 +23,7 @@ class PreferencesTableSeeder extends Seeder
         		'name' => 'registration',
         		'description' => '用户注册设置',
         		'value' => 'on',
-        		'option' => json_encode([
+        		'options' => json_encode([
         			'on' => '开启',
 					'off' => '关闭'
 				], JSON_UNESCAPED_UNICODE),

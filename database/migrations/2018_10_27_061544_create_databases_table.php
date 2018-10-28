@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEnvironmentsTable extends Migration
+class CreateDatabasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateEnvironmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('environments', function (Blueprint $table) {
+        Schema::create('databases', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->comment('名称');
-            $table->json('configuration')->comment('配置信息');
-            $table->unsignedInteger('project_id')->index()->comment('项目ID');
+			$table->unsignedInteger('project_id')->index()->comment('项目ID');
+			$table->unsignedInteger('version_id')->index()->comment('版本ID');
+			$table->unsignedInteger('module_id')->index()->comment('模块ID');
+            $table->string('name');
             $table->timestamps();
         });
-        table('environments', '项目环境信息数据表');
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateEnvironmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('environments');
+        Schema::dropIfExists('databases');
     }
 }
