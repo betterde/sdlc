@@ -69,4 +69,16 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return [];
     }
+
+	/**
+	 * 获取用户参与的项目
+	 *
+	 * Date: 2018/10/28
+	 * @author George
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function projects()
+	{
+		return $this->belongsToMany(Project::class, 'project_member_pivot', 'user_id', 'project_id', 'id', 'id');
+    }
 }
