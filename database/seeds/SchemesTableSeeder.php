@@ -41,10 +41,10 @@ class SchemesTableSeeder extends Seeder
 				'created_at' => date('Y-m-d H:i:s'),
 				'updated_at' => date('Y-m-d H:i:s')
 			],[
-        		'id' => 4,
-        		'name' => 'WebSocket',
-        		'description' => '是WebSocket协议的加密版',
-        		'content' => 'wss://',
+				'id' => 4,
+				'name' => 'WebSocketSSL',
+				'description' => 'WebSocket协议是基于TCP的一种新的网络协议',
+				'content' => 'wss://',
 				'created_at' => date('Y-m-d H:i:s'),
 				'updated_at' => date('Y-m-d H:i:s')
 			],
