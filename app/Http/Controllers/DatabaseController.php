@@ -14,9 +14,29 @@ use Illuminate\Http\Request;
  */
 class DatabaseController extends Controller
 {
+	/**
+	 * 获取项目的数据库
+	 *
+	 * Date: 2018/11/4
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function index(Request $request)
     {
-        //
+        $this->validate($request, [
+        	'project_id' => 'required|integer',
+			'name' => 'filled|string',
+		]);
+
+        $query = Database::query()->where('project_id', $request->project_id);
+
+        if ($name = $request->get('name')) {
+        	$query->where('name', 'like', "%{$name}%");
+		}
+
+		return success($query->paginate($request->get('paginate')));
     }
 
 	/**

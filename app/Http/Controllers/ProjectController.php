@@ -76,11 +76,8 @@ class ProjectController extends Controller
 			'name' => 'required|string',
 			'description' => 'filled|string',
 			'type_id' => 'required|integer',
-			'cover' => 'filled|string'
-		], [
-			'name.required' => '请输入项目名称',
-			'type_id.required' => '请选择项目类型',
-			'type_id.integer' => '项目类型有误'
+			'cover' => 'filled|string',
+			'status' => 'required|string',
 		]);
 
 		$attributes['owner'] = $user->getKey();

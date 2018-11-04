@@ -2,39 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Field;
 use Illuminate\Http\Request;
 
+/**
+ * 数据表字段逻辑控制器
+ *
+ * Date: 2018/11/4
+ * @author George
+ * @package App\Http\Controllers
+ */
 class FieldController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+	/**
+	 * 获取数据表字段
+	 *
+	 * Date: 2018/11/4
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+    public function index(Request $request)
     {
-        //
+        $this->validate($request, [
+        	'table_id' => 'required|integer',
+			'name' => 'filled|string'
+		]);
+
+        $query = Field::query()->where('table_id', $request->table_id);
+
+        if ($name = $request->get('name')) {
+        	$query->where('name', 'like', "%{$name}%");
+		}
+
+		return success($query->paginate('paginate'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * 创建表字段
+	 *
+	 * Date: 2018/11/4
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function store(Request $request)
     {
-        //
+        $attributes = $this->validate($request, [
+        	'name' => 'required|string',
+        	'type' => 'required|string',
+        	'length' => 'filled|integer',
+        	'default' => 'filled|string',
+        	'description' => 'filled|string',
+        	'primary' => 'filled|boolean',
+        	'nullable' => 'filled|boolean',
+		]);
+
+        $field = Field::create($attributes);
+
+        return stored($field);
     }
 
     /**
