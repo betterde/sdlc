@@ -21,7 +21,11 @@ Route::group(['middleware' => 'auth:users'], function () {
 	Route::apiResource('module', 'ModuleController');
 	Route::apiResource('project', 'ProjectController');
 	Route::apiResource('version', 'VersionController');
+
 	Route::apiResource('database', 'DatabaseController');
+	Route::apiResource('table', 'TableController');
+	Route::apiResource('field', 'FieldController');
+
 	Route::apiResource('repository', 'RepositoryController');
 	Route::apiResource('preferences', 'PreferencesController');
 });
