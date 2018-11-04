@@ -21,6 +21,7 @@ class CreateTablesTable extends Migration
 			$table->string('comment')->nullable()->comment('备注');
 			$table->string('statements')->nullable()->comment('语句');
 			$table->timestamps();
+			$table->unique(['database_id', 'name']);
         });
         table('tables', '数据库表信息');
     }

@@ -20,7 +20,7 @@ class CreateProjectsTable extends Migration
             $table->unsignedInteger('type_id')->index()->comment('类型ID');
             $table->unsignedInteger('owner')->index()->comment('拥有者');
             $table->string('cover')->default('')->comment('封面');
-            $table->string('status', 10)->index()->comment('状态');
+            $table->string('status', 10)->default('analysis')->index()->comment('状态');
             $table->boolean('public')->default(false)->comment('公开');
             $table->timestamps();
             $table->softDeletes();
