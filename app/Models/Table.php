@@ -21,4 +21,16 @@ class Table extends Model
 	 * @author George
 	 */
 	protected $guarded = ['id'];
+
+	/**
+	 * 获取表字段
+	 *
+	 * Date: 2018/11/4
+	 * @author George
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function fields()
+	{
+		return $this->hasMany(Field::class, 'table_id', 'id');
+	}
 }
