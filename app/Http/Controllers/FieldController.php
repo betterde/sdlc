@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Field;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Database\Query\Builder;
 
 /**
  * 数据表字段逻辑控制器
@@ -51,13 +53,21 @@ class FieldController extends Controller
     public function store(Request $request)
     {
         $attributes = $this->validate($request, [
-        	'name' => 'required|string',
-        	'type' => 'required|string',
-        	'length' => 'filled|integer',
-        	'default' => 'filled|string',
-        	'description' => 'filled|string',
-        	'primary' => 'filled|boolean',
-        	'nullable' => 'filled|boolean',
+        	'table_id' => 'required|integer',
+			'name' => 'required|string',
+			'type' => 'required|string',
+			'length' => 'filled|integer',
+			'default' => 'filled|string',
+			'character' => 'filled|string',
+			'collection' => 'filled|string',
+			'description' => 'filled|string',
+			'primary' => 'filled|boolean',
+			'nullable' => 'filled|boolean',
+			'auto_increment' => 'filled|boolean',
+			'unsigned' => 'filled|boolean',
+			'zerofill' => 'filled|boolean',
+			'binary' => 'filled|boolean',
+			'key' => 'filled|boolean'
 		]);
 
         $field = Field::create($attributes);
@@ -65,48 +75,71 @@ class FieldController extends Controller
         return stored($field);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+	/**
+	 * 获取字段详情信息
+	 *
+	 * Date: 2018/11/5
+	 * @author George
+	 * @param Field $field
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function show(Field $field)
     {
-        //
+    	return success($field);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+	/**
+	 * 更新表字段信息
+	 *
+	 * Date: 2018/11/5
+	 * @author George
+	 * @param Request $request
+	 * @param Field $field
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+    public function update(Request $request, Field $field)
     {
-        //
+    	$attributes = $this->validate($request, [
+			'name' => [
+				'required',
+				'string',
+				Rule::unique('fields')->where(function (Builder $query) use ($field) {
+					return $query->where('table_id','!=', $field->table_id);
+				})
+			],
+			'type' => 'required|string',
+			'length' => 'filled|integer',
+			'default' => 'filled|string',
+			'character' => 'filled|string',
+			'collection' => 'filled|string',
+			'description' => 'filled|string',
+			'primary' => 'filled|boolean',
+			'nullable' => 'filled|boolean',
+			'auto_increment' => 'filled|boolean',
+			'unsigned' => 'filled|boolean',
+			'zerofill' => 'filled|boolean',
+			'binary' => 'filled|boolean',
+			'key' => 'filled|boolean'
+		]);
+
+    	$field->update($attributes);
+
+    	return updated($field);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+	/**
+	 * 删除表字段
+	 *
+	 * Date: 2018/11/5
+	 * @author George
+	 * @param Field $field
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+    public function destroy(Field $field)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    	$field->delete();
+    	return deleted();
     }
 }
