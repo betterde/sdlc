@@ -15,9 +15,10 @@ class CreateCodesTable extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('project_id')->index()->comment('项目ID');
             $table->unsignedInteger('group_id')->index()->comment('分组ID');
             $table->integer('number')->index()->comment('状态码');
-            $table->string('description')->nullable();
+            $table->string('description')->nullable()->comment('描述');
             $table->timestamps();
         });
         table('codes', '状态码数据表');
