@@ -12,12 +12,14 @@
 * Document managerment
 * Flow
 * Issue
+* Database Scheme managerment
+* Response status code managerment
 
 ## Installation
 
 ```shell
 # Clone this project to your computer
-git clone https://github.com/betterde/sdlc.git & cd sdlc
+git clone https://github.com/betterde/sdlc.git && cd sdlc
 
 # Install back-end dependencies
 composer install
