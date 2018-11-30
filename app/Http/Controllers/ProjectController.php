@@ -7,7 +7,6 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 
 /**
  * 项目逻辑控制器
@@ -82,6 +81,8 @@ class ProjectController extends Controller
 
 		$attributes['owner'] = $user->getKey();
 		$project = Project::create($attributes);
+
+		Project::onlyTrashed();
 		return stored($project);
     }
 
