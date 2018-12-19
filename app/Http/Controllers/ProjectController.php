@@ -82,7 +82,6 @@ class ProjectController extends Controller
 		$attributes['owner'] = $user->getKey();
 		$project = Project::create($attributes);
 
-		Project::onlyTrashed();
 		return stored($project);
     }
 
