@@ -28,4 +28,5 @@ Route::group(['middleware' => 'auth:users'], function () {
 
 	Route::apiResource('repository', 'RepositoryController');
 	Route::apiResource('preferences', 'PreferencesController');
+	Route::get('system/menu', 'MenuController@index');
 });
