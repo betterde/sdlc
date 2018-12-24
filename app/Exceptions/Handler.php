@@ -4,9 +4,19 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+/**
+ * 全局异常处理
+ *
+ * Date: 2018-12-24
+ * @author George
+ * @package App\Exceptions
+ */
 class Handler extends ExceptionHandler
 {
     /**
@@ -15,7 +25,11 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        HttpException::class,
+        ValidationException::class,
+        ModelNotFoundException::class,
+        AuthorizationException::class,
+        AuthenticationException::class
     ];
 
     /**
@@ -54,6 +68,11 @@ class Handler extends ExceptionHandler
     	if ($exception instanceof ValidationException) {
 			return failed(array_first(array_collapse($exception->errors())), 422);
 		}
+
+    	if ($exception instanceof ModelNotFoundException) {
+    	    return notFound();
+        }
+
         return parent::render($request, $exception);
     }
 

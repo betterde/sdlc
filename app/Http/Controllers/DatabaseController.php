@@ -75,7 +75,7 @@ class DatabaseController extends Controller
      */
     public function show($id)
     {
-        $database = Database::query()->with('tables')->find($id);
+        $database = Database::query()->with('tables')->findOrFail($id);
         return success($database);
     }
 
