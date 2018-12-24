@@ -38,7 +38,7 @@ class FieldController extends Controller
         	$query->where('name', 'like', "%{$name}%");
 		}
 
-		return success($query->paginate('paginate'));
+		return success($query->paginate($request->get('paginate')));
     }
 
 	/**
@@ -57,7 +57,7 @@ class FieldController extends Controller
 			'name' => 'required|string',
 			'type' => 'required|string',
 			'length' => 'filled|integer',
-			'default' => 'filled|string',
+			'default' => 'string',
 			'character' => 'filled|string',
 			'collection' => 'filled|string',
 			'description' => 'filled|string',

@@ -118,13 +118,14 @@ class DatabaseController extends Controller
         try {
             DB::beginTransaction();
             $tables = DB::table('tables')->where('database_id', $database->id)->pluck('id')->toArray();
-            DB::table('fields')->whereIn('id', $tables)->delete();
+            DB::table('fields')->whereIn('table_id', $tables)->delete();
             DB::table('tables')->whereIn('id', $tables)->delete();
             $database->delete();
             DB::commit();
-            return deleted();
         } catch (Exception $exception) {
             DB::rollBack();
         }
+
+        return deleted();
     }
 }

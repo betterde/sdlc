@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 数据表逻辑控制器
@@ -98,13 +100,25 @@ class TableController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除数据表
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Date: 2018-12-24
+     * @author George
+     * @param Table $table
+     * @return \Illuminate\Http\JsonResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(Table $table)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $table->fields()->delete();
+            $table->delete();
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+        }
+
+        return deleted();
     }
 }
