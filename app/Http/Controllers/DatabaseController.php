@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Database;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 项目数据库设计逻辑控制器
@@ -64,36 +66,65 @@ class DatabaseController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 获取数据库及表信息
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Date: 2018-12-24
+     * @author George
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $database = Database::query()->with('tables')->find($id);
+        return success($database);
     }
 
     /**
-     * Update the specified resource in storage.
+     * 修改数据库信息
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Date: 2018-12-24
+     * @author George
+     * @param Request $request
+     * @param Database $database
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Database $database)
     {
-        //
+        $attributes = $this->validate($request, [
+            'project_id' => 'required|integer',
+            'version_id' => 'filled|integer',
+            'module_id' => 'filled|integer',
+            'name' => 'required|string',
+            'character' => 'filled|string',
+            'collection' => 'filled|string',
+        ]);
+
+        $database->update($attributes);
+        return updated($database);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除数据库
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Date: 2018-12-24
+     * @author George
+     * @param Database $database
+     * @return \Illuminate\Http\JsonResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(Database $database)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $tables = DB::table('tables')->where('database_id', $database->id)->pluck('id')->toArray();
+            DB::table('fields')->whereIn('id', $tables)->delete();
+            DB::table('tables')->whereIn('id', $tables)->delete();
+            $database->delete();
+            DB::commit();
+            return deleted();
+        } catch (Exception $exception) {
+            DB::rollBack();
+        }
     }
 }

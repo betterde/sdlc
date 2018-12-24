@@ -23,6 +23,7 @@ class CreateDatabasesTable extends Migration
             $table->string('collection')->default('utf8mb4_unicode_ci')->comment('字符集');
             $table->timestamps();
         });
+        table('databases', '数据库');
     }
 
     /**

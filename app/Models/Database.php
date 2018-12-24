@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2018/10/28
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Database extends Model
 {
@@ -21,4 +22,16 @@ class Database extends Model
 	 * @author George
 	 */
 	protected $guarded = ['id'];
+
+    /**
+     * 获取数据库的表信息
+     *
+     * Date: 2018-12-24
+     * @author George
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tables()
+    {
+        return $this->hasMany(Table::class, 'database_id', 'id');
+	}
 }
