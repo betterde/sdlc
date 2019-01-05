@@ -53,7 +53,7 @@ class MenusTableSeeder extends Seeder
                 'route' => null,
                 'scope' => 'global',
                 'parent_id' => 0
-            ]
+            ],
         ];
 
         DB::table('menus')->insert($menus);
