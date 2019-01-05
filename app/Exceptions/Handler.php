@@ -9,6 +9,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * 全局异常处理
@@ -70,6 +71,10 @@ class Handler extends ExceptionHandler
 		}
 
     	if ($exception instanceof ModelNotFoundException) {
+    	    return notFound();
+        }
+
+    	if ($exception instanceof NotFoundHttpException) {
     	    return notFound();
         }
 
