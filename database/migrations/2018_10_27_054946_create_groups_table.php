@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
             $table->unsignedInteger('name')->index()->comment('父级ID');
             $table->timestamps();
         });
+        table('groups', '分组数据库');
     }
 
     /**

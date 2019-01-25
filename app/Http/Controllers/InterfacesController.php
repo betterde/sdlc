@@ -14,7 +14,6 @@ class InterfacesController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**

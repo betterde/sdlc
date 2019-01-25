@@ -3,6 +3,12 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * 系统菜单数据填充器
+ *
+ * Date: 2019-01-06
+ * @author George
+ */
 class MenusTableSeeder extends Seeder
 {
     /**
