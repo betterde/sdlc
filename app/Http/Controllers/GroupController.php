@@ -28,13 +28,14 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $this->validate($request, [
-            'project_id' => 'required|numeric'
+            'project_id' => 'required|numeric',
+            'scene' => 'required'
         ]);
 
-        $groups = Group::query()
-            ->where('project_id', $request->get('project_id'))
-            ->where(['scene', Group::SCENE_API])
-            ->get();
+        $groups = Group::query()->where([
+            ['project_id', '=', $request->get('project_id')],
+            ['scene', '=', $request->get('scene')],
+        ])->get();
         return success($groups);
     }
 

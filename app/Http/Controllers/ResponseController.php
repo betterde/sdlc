@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Response;
 use Illuminate\Http\Request;
 
+/**
+ * 接口响应参数
+ *
+ * Date: 2019-01-26
+ * @author George
+ * @package App\Http\Controllers
+ */
 class ResponseController extends Controller
 {
     /**
@@ -12,9 +19,9 @@ class ResponseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
     }
 
     /**

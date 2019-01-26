@@ -21,4 +21,32 @@ class Argument extends Model
 	 * @author George
 	 */
 	protected $guarded = ['id'];
+
+    /**
+     * 参数场景
+     *
+     * Date: 2019-01-26
+     * @author George
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function scene()
+    {
+        return $this->morphTo();
+	}
+
+    /**
+     * 获取选项的属性
+     *
+     * Date: 2019-01-26
+     * @author George
+     * @return array
+     */
+    public function getOptionsAttributes()
+    {
+        return [
+            'default' => 'boolean',
+            'value' => 'string',
+            'comment' => 'string'
+        ];
+	}
 }

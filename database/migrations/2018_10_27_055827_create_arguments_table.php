@@ -19,13 +19,15 @@ class CreateArgumentsTable extends Migration
 			$table->string('name')->comment('参数名');
 			$table->string('type')->default('string')->comment('值类型');
             $table->string('description')->nullable()->comment('描述');
-            $table->string('option_id')->nullable()->comment('可选值');
             $table->string('value')->nullable()->comment('示例值');
+            $table->json('options')->nullable()->comment('可选值');
             $table->string('regulation')->default('required')->comment('验证规则');
-            $table->string('scene')->default('request')->comment('参数场景');
+            $table->unsignedInteger('scene_id')->comment('关联模型ID');
+            $table->string('scene_type')->comment('关联模型类型');
             $table->timestamps();
+            $table->index(['scene_id', 'scene_type']);
         });
-
+        table('arguments', '参数数据表');
     }
 
     /**
