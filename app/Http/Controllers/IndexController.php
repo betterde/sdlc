@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * 索引逻辑控制器
+ *
+ * Date: 2019-01-31
+ * @author George
+ * @package App\Http\Controllers
+ */
 class IndexController extends Controller
 {
     /**

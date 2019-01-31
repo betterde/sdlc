@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Issue;
+use App\Models\Request;
+use App\Models\Response;
 use App\Models\Requirement;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     {
     	Relation::morphMap([
     		'issue' => Issue::class,
+			'request' => Request::class,
+			'response' => Response::class,
 			'requirement' => Requirement::class
 		]);
     }

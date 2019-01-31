@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2018/10/28
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Argument extends Model
 {
@@ -21,6 +22,17 @@ class Argument extends Model
 	 * @author George
 	 */
 	protected $guarded = ['id'];
+
+	/**
+	 * 定义属性数据类型
+	 *
+	 * @var array
+	 * Date: 2019-01-31
+	 * @author George
+	 */
+	protected $casts = [
+		'options' => 'json'
+	];
 
     /**
      * 参数场景
