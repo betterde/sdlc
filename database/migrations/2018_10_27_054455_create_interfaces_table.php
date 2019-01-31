@@ -22,7 +22,7 @@ class CreateInterfacesTable extends Migration
 			$table->string('scheme')->comment('协议');
 			$table->string('name')->comment('名称');
 			$table->string('method')->nullable()->comment('请求方法');
-			$table->string('address')->nullable()->comment('请求地址');
+			$table->string('uri')->nullable()->comment('相对路径');
 			$table->string('status')->default('normal')->comment('状态');
 			$table->text('explain')->nullable()->comment('说明');
             $table->timestamps();

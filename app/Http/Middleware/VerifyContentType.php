@@ -13,6 +13,17 @@ use Closure;
  */
 class VerifyContentType
 {
+	/**
+	 * 定义需要排除的路由
+	 *
+	 * @var array $except
+	 * Date: 2019-01-31
+	 * @author George
+	 */
+	protected $except = [
+		'account/avatar'
+	];
+
     /**
      * Handle an incoming request.
      *
@@ -22,7 +33,7 @@ class VerifyContentType
      */
     public function handle($request, Closure $next)
     {
-        if ($request->isJson()) {
+        if ($request->isJson() || in_array($request->path(), $this->except)) {
             return $next($request);
         }
 

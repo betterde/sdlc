@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2018-12-23
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Menu extends Model
 {

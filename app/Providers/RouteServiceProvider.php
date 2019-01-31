@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -39,10 +37,5 @@ class RouteServiceProvider extends ServiceProvider
             'middleware' => 'api',
             'namespace' => $this->namespace
         ], base_path('routes/api.php'));
-
-        /**
-         *
-         */
-        Route::group([], base_path('routes/web.php'));
     }
 }

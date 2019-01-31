@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Argument;
 use Illuminate\Http\Request;
+use App\Models\Request as InterfaceRequest;
 
 /**
- * 接口参数逻辑控制器
+ * 接口请求逻辑控制器
  *
  * Date: 2019-01-31
  * @author George
  * @package App\Http\Controllers
  */
-class ArgumentController extends Controller
+class RequestController extends Controller
 {
 	/**
-	 * 获取接口参数列表
+	 * 获取接口请求信息
 	 *
 	 * Date: 2019-01-31
 	 * @author George
@@ -29,12 +29,12 @@ class ArgumentController extends Controller
     		'interface_id' => 'numeric'
 		]);
 
-    	$arguments = Argument::where('interface_id', $request->get('interface_id'))->get();
-    	return success($arguments->keyBy('scene_type'));
+    	$requests = InterfaceRequest::with('headers', 'arguments')->where('interface_id', $request->get('interface_id'))->get();
+    	return success($requests);
     }
 
 	/**
-	 * 创建接口参数
+	 * 创建接口请求实例
 	 *
 	 * Date: 2019-01-31
 	 * @author George
@@ -47,69 +47,60 @@ class ArgumentController extends Controller
         $attributes = $this->validate($request, [
         	'interface_id' => 'numeric',
         	'name' => 'string',
-        	'type' => 'string',
-        	'description' => 'nullable|string',
-        	'value' => 'string',
-        	'options' => 'array',
-        	'regulation' => 'string',
-        	'scene_id' => 'numeric',
-        	'scene_type' => 'string'
+        	'description' => 'nullable'
 		]);
 
-        $argument = Argument::create($attributes);
-        return success($argument);
+        $request = InterfaceRequest::create($attributes);
+        return stored($request);
     }
 
 	/**
-	 * 获取接口参数详情信息
+	 * 获取接口请求信息
 	 *
 	 * Date: 2019-01-31
 	 * @author George
-	 * @param Argument $argument
+	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-    public function show(Argument $argument)
+    public function show($id)
     {
-    	return success($argument);
+    	$request = InterfaceRequest::with('headers', 'arguments')->where('id', $id)->firstOrFail();
+    	return success($request);
     }
 
 	/**
-	 * 更新接口参数详情信息
+	 * 更新接口请求信息
 	 *
 	 * Date: 2019-01-31
 	 * @author George
 	 * @param Request $request
-	 * @param Argument $argument
+	 * @param InterfaceRequest $interfaceRequest
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Illuminate\Validation\ValidationException
 	 */
-    public function update(Request $request, Argument $argument)
+    public function update(Request $request, InterfaceRequest $interfaceRequest)
     {
 		$attributes = $this->validate($request, [
 			'name' => 'string',
-			'type' => 'string',
-			'description' => 'nullable|string',
-			'value' => 'string',
-			'options' => 'array',
-			'regulation' => 'string'
+			'description' => 'nullable'
 		]);
 
-		$argument->update($attributes);
-		return updated($attributes);
+		$interfaceRequest->update($attributes);
+		return updated($interfaceRequest);
     }
 
 	/**
-	 * 删除接口参数
+	 * 删除接口请求信息
 	 *
 	 * Date: 2019-01-31
 	 * @author George
-	 * @param Argument $argument
+	 * @param InterfaceRequest $interfaceRequest
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-    public function destroy(Argument $argument)
+    public function destroy(InterfaceRequest $interfaceRequest)
     {
-    	$argument->delete();
+    	$interfaceRequest->delete();
     	return deleted();
     }
 }
