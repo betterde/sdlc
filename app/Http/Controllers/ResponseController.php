@@ -14,58 +14,93 @@ use Illuminate\Http\Request;
  */
 class ResponseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * 获取接口响应信息
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function index(Request $request)
     {
+		$this->validate($request, [
+			'interface_id' => 'numeric'
+		]);
 
+		$response = Response::with('headers', 'arguments')->where('interface_id', $request->get('interface_id'))->get();
+		return success($response);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * 创建接口响应内容
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function store(Request $request)
     {
-        //
+		$attributes = $this->validate($request, [
+			'interface_id' => 'numeric',
+			'name' => 'string',
+			'description' => 'nullable'
+		]);
+
+		$response = Response::create($attributes);
+		return stored($response);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Response  $response
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Response $response)
+	/**
+	 * 获取接口响应详情
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param $id
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function show($id)
     {
-        //
+    	$responses = Response::with('headers', 'arguments')->where('id', $id)->firstOrFail();
+    	return success($responses);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Response  $response
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * 更新接口响应信息
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param Request $request
+	 * @param Response $response
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
     public function update(Request $request, Response $response)
     {
-        //
+		$attributes = $this->validate($request, [
+			'name' => 'string',
+			'description' => 'nullable'
+		]);
+
+		$response->update($attributes);
+		return updated($response);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Response  $response
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * 删除接口响应信息
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param Response $response
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
     public function destroy(Response $response)
     {
-        //
+    	$response->delete();
+    	return deleted();
     }
 }

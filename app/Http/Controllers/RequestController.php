@@ -5,16 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Request as InterfaceRequest;
 
+/**
+ * 接口请求逻辑控制器
+ *
+ * Date: 2019-01-31
+ * @author George
+ * @package App\Http\Controllers
+ */
 class RequestController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+	/**
+	 * 获取接口请求信息
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+    public function index(Request $request)
     {
-        //
+    	$this->validate($request, [
+    		'interface_id' => 'numeric'
+		]);
+
+    	$requests = InterfaceRequest::with('headers', 'arguments')->where('interface_id', $request->get('interface_id'))->get();
+    	return success($requests);
     }
 
 	/**
@@ -38,36 +54,53 @@ class RequestController extends Controller
         return stored($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
+	/**
+	 * 获取接口请求信息
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param $id
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function show($id)
     {
-        //
+    	$request = InterfaceRequest::with('headers', 'arguments')->where('id', $id)->firstOrFail();
+    	return success($request);
     }
 
 	/**
+	 * 更新接口请求信息
+	 *
 	 * Date: 2019-01-31
 	 * @author George
 	 * @param Request $request
 	 * @param InterfaceRequest $interfaceRequest
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Illuminate\Validation\ValidationException
 	 */
     public function update(Request $request, InterfaceRequest $interfaceRequest)
     {
-        //
+		$attributes = $this->validate($request, [
+			'name' => 'string',
+			'description' => 'nullable'
+		]);
+
+		$interfaceRequest->update($attributes);
+		return updated($interfaceRequest);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
+	/**
+	 * 删除接口请求信息
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param InterfaceRequest $interfaceRequest
+	 * @return \Illuminate\Http\JsonResponse
+	 * @throws \Exception
+	 */
+    public function destroy(InterfaceRequest $interfaceRequest)
     {
-        //
+    	$interfaceRequest->delete();
+    	return deleted();
     }
 }

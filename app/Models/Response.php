@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2018/10/28
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Response extends Model
 {
@@ -21,6 +22,18 @@ class Response extends Model
 	 * @author George
 	 */
 	protected $guarded = ['id'];
+
+	/**
+	 * 获取响应头
+	 *
+	 * Date: 2019-01-26
+	 * @author George
+	 * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+	 */
+	public function headers()
+	{
+		return $this->morphMany(Header::class, 'scene');
+	}
 
     /**
      * 获取响应参数
