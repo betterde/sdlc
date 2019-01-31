@@ -18,7 +18,6 @@ class CreateRequestsTable extends Migration
             $table->unsignedInteger('interface_id')->index()->comment('接口ID');
             $table->string('name')->comment('名称');
             $table->string('description')->comment('简介');
-            $table->json('payload')->comment('载荷');
             $table->timestamps();
         });
     }

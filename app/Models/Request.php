@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2019-01-26
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Request extends Model
 {
@@ -21,6 +22,18 @@ class Request extends Model
      * @author George
      */
     protected $guarded = ['id'];
+
+	/**
+	 * 获取请求头
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+	 */
+	public function headers()
+	{
+		return $this->morphMany(Header::class, 'scene');
+	}
 
     /**
      * 获取请求参数
