@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Date: 2018/10/15
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Version extends Model
 {

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2018/10/18
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Comment extends Model
 {
