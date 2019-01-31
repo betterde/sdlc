@@ -15,6 +15,13 @@
 * Database Scheme managerment
 * Response status code managerment
 
+## About the version
+Version format：A.B.C
+
+* A : Major version number, when there are major changes in functional modules, such as adding more modules or changes in the overall architecture.
+* B : Subversion number, when there is a certain increase or change in the function, such as adding the right to control, add custom view and other functions.
+* C : Phase version number, usually Bug fix or some small changes, to often release a revised version, the time interval is not limited, fix a serious Bug can be released a revised version.
+
 ## Installation
 
 ```shell
@@ -43,7 +50,6 @@ php artisan db:seed
 ## Optimizing
 
 ```shell
-
 php artisan optimize
 
 php artisan config:cache
