@@ -33,6 +33,18 @@ class Interfaces extends Model
 	 */
 	protected $guarded = ['id'];
 
+	/**
+	 * 获取接口的请求信息
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function requests()
+	{
+		return $this->hasMany(Request::class, 'interface_id', 'id');
+	}
+
     /**
      * 获取接口的响应结果
      *

@@ -118,7 +118,7 @@ class InterfacesController extends Controller
      */
     public function show($id)
     {
-        $interface = Interfaces::with('arguments', 'responses')
+        $interface = Interfaces::with('requests.arguments', 'requests.headers', 'responses.arguments', 'responses.headers')
             ->where('id', $id)->get();
         return success($interface);
     }

@@ -27,6 +27,10 @@ Route::group(['middleware' => 'auth:users'], function () {
 	Route::apiResource('field', 'FieldController');
 
 	Route::apiResource('interface', 'InterfacesController');
+	Route::apiResource('request', 'RequestController');
+	Route::apiResource('response', 'ResponseController');
+	Route::apiResource('argument', 'ArgumentController');
+	Route::apiResource('header', 'HeaderController');
 	Route::apiResource('group', 'GroupController');
 
 	Route::apiResource('repository', 'RepositoryController');

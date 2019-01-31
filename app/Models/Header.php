@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2018/10/28
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class Header extends Model
 {
@@ -21,4 +22,16 @@ class Header extends Model
 	 * @author George
 	 */
 	protected $guarded = ['id'];
+
+	/**
+	 * 参数场景
+	 *
+	 * Date: 2019-01-26
+	 * @author George
+	 * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+	 */
+	public function scene()
+	{
+		return $this->morphTo();
+	}
 }
