@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 2018/10/28
  * @author George
  * @package App\Models
+ * @property int $id
+ * @mixin \Eloquent
  */
 class Scheme extends Model
 {
