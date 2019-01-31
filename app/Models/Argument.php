@@ -23,6 +23,17 @@ class Argument extends Model
 	 */
 	protected $guarded = ['id'];
 
+	/**
+	 * 定义属性数据类型
+	 *
+	 * @var array
+	 * Date: 2019-01-31
+	 * @author George
+	 */
+	protected $casts = [
+		'options' => 'json'
+	];
+
     /**
      * 参数场景
      *
