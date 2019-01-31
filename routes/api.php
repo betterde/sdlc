@@ -34,7 +34,18 @@ Route::group(['middleware' => 'auth:users'], function () {
 	Route::apiResource('scheme', 'SchemeController');
 	Route::apiResource('group', 'GroupController');
 
+	Route::apiResource('user', 'UserController');
+
 	Route::apiResource('repository', 'RepositoryController');
 	Route::apiResource('preferences', 'PreferencesController');
 	Route::get('system/menu', 'MenuController@index');
+});
+
+/**
+ * 用户个人中心
+ */
+Route::group(['middleware' => 'auth:users', 'prefix' => 'account', 'namespace' => 'Account'], function () {
+	Route::get('/', 'ProfileController@index');
+	Route::post('avatar', 'ProfileController@avatar');
+	Route::post('password', 'ProfileController@password');
 });

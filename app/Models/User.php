@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Date: 2018/10/15
  * @author George
  * @package App\Models
+ * @mixin \Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
@@ -28,20 +29,24 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
      */
     protected $rememberTokenName = '';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array $fillable
+	 * Date: 2019-01-31
+	 * @author George
+	 */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'avatar'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+	/**
+	 * The attributes that should be hidden for arrays.
+	 *
+	 * @var array $hidden
+	 * Date: 2019-01-31
+	 * @author George
+	 */
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -68,6 +73,18 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+	/**
+	 * 加密用户密码
+	 *
+	 * Date: 2019-01-31
+	 * @author George
+	 * @param $value
+	 */
+	public function setPasswordAttribute($value)
+	{
+		$this->attributes['password'] = bcrypt($value);
     }
 
 	/**

@@ -26,8 +26,6 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'password' => bcrypt('Betterde'),
                 'avatar' => '',
-                'mobile' => '',
-                'wechat' => '',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]
