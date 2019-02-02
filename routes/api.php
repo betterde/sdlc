@@ -12,8 +12,11 @@
 */
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-    Route::post('signin', 'AuthenticationController@signin')->name('auth.signin');
-    Route::post('signout', 'AuthenticationController@signout')->name('auth.signout');
+	Route::post('signin', 'AuthenticationController@signin')->name('auth.signin');
+	Route::post('signout', 'AuthenticationController@signout')->name('auth.signout');
+	Route::post('register', 'RegisterController@register')->name('auth.register');
+	Route::get('email/verify/{id}', 'VerificationController@verify')->name('verification.verify');
+	Route::post('email/resend', 'VerificationController@resend')->name('verification.resend');
 });
 
 Route::group(['middleware' => 'auth:users'], function () {

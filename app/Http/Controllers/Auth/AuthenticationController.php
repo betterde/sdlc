@@ -75,8 +75,6 @@ class AuthenticationController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'avatar' => $user->avatar,
-                'mobile' => $user->mobile,
-                'wechat' => $user->wechat,
                 'access_token' => $token,
                 'token_type' => 'Bearer',
                 'expires_in' => config('jwt.ttl') * 60,

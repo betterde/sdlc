@@ -21,7 +21,8 @@ class VerifyContentType
 	 * @author George
 	 */
 	protected $except = [
-		'account/avatar'
+		'account/avatar',
+		'auth/verify'
 	];
 
     /**
