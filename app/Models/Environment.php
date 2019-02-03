@@ -17,9 +17,20 @@ class Environment extends Model
 	/**
 	 * 定义不可批量填充字段
 	 *
-	 * @var array
+	 * @var array $guarded
 	 * Date: 2018/9/21
 	 * @author George
 	 */
 	protected $guarded = ['id'];
+
+	/**
+	 * 定义属性数据类型
+	 *
+	 * @var array $casts
+	 * Date: 2019-02-03
+	 * @author George
+	 */
+	protected $casts = [
+		'configuration' => 'json'
+	];
 }
