@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Auth\Access\AuthorizationException;
 
+/**
+ * 验证用户邮箱
+ *
+ * Date: 2019-02-03
+ * @author George
+ * @package App\Http\Controllers\Auth
+ */
 class VerificationController extends Controller
 {
-    use RedirectsUsers;
-
-    /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -30,19 +29,6 @@ class VerificationController extends Controller
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
-
-	/**
-	 * Show the email verification notice.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(Request $request)
-	{
-		return $request->user()->hasVerifiedEmail()
-			? redirect($this->redirectPath())
-			: view('auth.verify');
-	}
 
 	/**
 	 * 验证用户邮箱
@@ -71,19 +57,26 @@ class VerificationController extends Controller
 	}
 
 	/**
-	 * Resend the email verification notification.
+	 * 从新发送验证邮件
 	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
+	 * Date: 2019-02-03
+	 * @author George
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function resend(Request $request)
 	{
-		if ($request->user()->hasVerifiedEmail()) {
-			return redirect($this->redirectPath());
+		/**
+		 * @var User $user
+		 */
+		$user = $request->user();
+
+		if ($user->hasVerifiedEmail()) {
+			return message('账户已经验证通过，请勿重复验证');
 		}
 
-		$request->user()->sendEmailVerificationNotification();
+		$user->sendEmailVerificationNotification();
 
-		return back()->with('resent', true);
+		return message(sprintf('已发送到%s', $user->email));
 	}
 }
