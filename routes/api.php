@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth:users'], function () {
 
 	Route::apiResource('user', 'UserController');
 
+	Route::apiResource('environment', 'EnvironmentController');
+
 	Route::apiResource('repository', 'RepositoryController');
 	Route::apiResource('preferences', 'PreferencesController');
 	Route::get('system/menu', 'MenuController@index');

@@ -26,7 +26,7 @@ class Argument extends Model
 	/**
 	 * 定义属性数据类型
 	 *
-	 * @var array
+	 * @var array $casts
 	 * Date: 2019-01-31
 	 * @author George
 	 */

@@ -15,6 +15,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
  * Date: 2018/10/15
  * @author George
  * @package App\Models
+ * @property string $name
+ * @property string $email
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
