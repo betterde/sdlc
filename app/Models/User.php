@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\MustVerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
 /**
  * 用户数据模型
@@ -14,11 +15,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Date: 2018/10/15
  * @author George
  * @package App\Models
+ * @property string $name
+ * @property string $email
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail, JWTSubject
+class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, MustVerifyEmail;
 
     /**
      * 禁用 Remember Token

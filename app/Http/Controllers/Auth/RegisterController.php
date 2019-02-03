@@ -3,33 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
+/**
+ * 用户注册逻辑控制器
+ *
+ * Date: 2019-02-01
+ * @author George
+ * @package App\Http\Controllers\Auth
+ */
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
     /**
      * Create a new controller instance.
      *
@@ -40,33 +27,46 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
+	/**
+	 * 用户注册
+	 *
+	 * Date: 2019-02-01
+	 * @author George
+	 * @param Request $request
+	 * @return mixed
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+	public function register(Request $request)
+	{
+		$attributes = $this->validate($request, [
+			'name' => 'required|string|max:255',
+			'email' => 'required|string|email|max:255|unique:users',
+			'password' => 'required|string|min:6|confirmed',
+		]);
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
+		event(new Registered($user = $this->create($attributes)));
+
+		return success([
+			'id' => $user->id,
+			'name' => $user->name,
+			'email' => $user->email,
+			'avatar' => $user->avatar,
+			'access_token' => Auth::login($user),
+			'token_type' => 'Bearer',
+			'expires_in' => config('jwt.ttl') * 60,
+		]);
+	}
+
+	/**
+	 * 创建用户
+	 *
+	 * Date: 2019-02-01
+	 * @author George
+	 * @param array $attributes
+	 * @return User|\Illuminate\Database\Eloquent\Model
+	 */
+    protected function create(array $attributes)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return User::create($attributes);
     }
 }
