@@ -25,21 +25,21 @@
         "betterde/comment": "^1.0",
         "betterde/response": "^1.2",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "5.7.*",
-        "laravel/horizon": "^1.4",
+        "laravel/framework": "5.8.*",
+        "laravel/horizon": "^3.2",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1",
-        "tymon/jwt-auth": "1.0.0-rc.3"
+        "tymon/jwt-auth": "1.0.0-rc.4.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.5",
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
-        "laravel/telescope": "^0.1.2",
+        "laravel/telescope": "^2.0.6",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "nunomaduro/collision": "^3.0.1",
+        "phpunit/phpunit": "^8.2.5"
     },
     "autoload": {
         "classmap": [
