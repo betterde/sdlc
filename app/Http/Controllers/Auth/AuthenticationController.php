@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Tymon\JWTAuth\JWTGuard;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Auth\EloquentUserProvider;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 /**
@@ -38,8 +41,8 @@ class AuthenticationController extends Controller
 	 * @author George
 	 * @param Request $request
 	 * @param Hasher $hasher
-	 * @return \Illuminate\Http\JsonResponse
-	 * @throws \Illuminate\Validation\ValidationException
+	 * @return JsonResponse
+	 * @throws ValidationException
 	 */
     public function signin(Request $request, Hasher $hasher)
     {
@@ -51,7 +54,7 @@ class AuthenticationController extends Controller
             'password.required' => '请输入您的密码',
         ]);
 
-        $credentials[$this->username()] = array_pull($credentials, 'username');
+        $credentials[$this->username()] = Arr::pull($credentials, 'username');
         $provider = new EloquentUserProvider($hasher, User::class);
 
         /**
@@ -89,7 +92,7 @@ class AuthenticationController extends Controller
      *
      * Date: 2018/10/14
      * @author George
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function signout()
     {
@@ -100,7 +103,7 @@ class AuthenticationController extends Controller
     /**
      * Get the needed authorization credentials from the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     protected function credentials(Request $request)
