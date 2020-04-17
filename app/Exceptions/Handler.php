@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use Throwable;
 use Exception;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -26,49 +31,50 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontReport = [
-        HttpException::class,
-        ValidationException::class,
-        ModelNotFoundException::class,
-        AuthorizationException::class,
-        AuthenticationException::class
-    ];
+	protected array $dontReport = [
+		HttpException::class,
+		ValidationException::class,
+		ModelNotFoundException::class,
+		AuthorizationException::class,
+		AuthenticationException::class
+	];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
      * @var array
      */
-    protected $dontFlash = [
-        'password',
-        'password_confirmation',
-    ];
+	protected array $dontFlash = [
+		'password',
+		'password_confirmation',
+	];
 
-    /**
-     * Report or log an exception.
-     *
-     * Date: 2018/10/14
-     * @author George
-     * @param Exception $exception
-     * @return mixed|void
-     * @throws Exception
-     */
-    public function report(Exception $exception)
+	/**
+	 * Report or log an exception.
+	 *
+	 * Date: 2018/10/14
+	 * @param Throwable $exception
+	 * @return mixed|void
+	 * @throws Exception
+	 * @author George
+	 */
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Exception $exception)
+	/**
+	 * Render an exception into an HTTP response.
+	 *
+	 * @param Request $request
+	 * @param Throwable $exception
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @throws Throwable
+	 */
+    public function render($request, Throwable $exception)
     {
     	if ($exception instanceof ValidationException) {
-			return failed(array_first(array_collapse($exception->errors())), 422);
+			return failed(Arr::first(Arr::collapse($exception->errors())), 422);
 		}
 
     	if ($exception instanceof ModelNotFoundException) {
@@ -90,10 +96,10 @@ class Handler extends ExceptionHandler
      * 认证失败后处理逻辑
      *
      * Date: 2018/10/14
-     * @author George
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param AuthenticationException $exception
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     * @return JsonResponse|Response
+     *@author George
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
