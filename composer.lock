@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4ccb67a93f8a15ac071f936f3b8338e",
+    "content-hash": "87f09beb2aa6d076ec385c3063a182a0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -57,52 +57,6 @@
                 "stack"
             ],
             "time": "2019-12-24T22:41:47+00:00"
-        },
-        {
-            "name": "betterde/comment",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/betterde/comment.git",
-                "reference": "8726e10a09e72ee4dadb39fba3a519ce86ffeb1d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/betterde/comment/zipball/8726e10a09e72ee4dadb39fba3a519ce86ffeb1d",
-                "reference": "8726e10a09e72ee4dadb39fba3a519ce86ffeb1d",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^5|^6|^7"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Betterde\\Comment\\Providers\\CommentServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Betterde\\Comment\\": "src/"
-                },
-                "files": [
-                    "src/Helpers/CommentHelper.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "George",
-                    "email": "george@betterde.com"
-                }
-            ],
-            "description": "Add comment content to migration file",
-            "time": "2020-04-17T08:07:05+00:00"
         },
         {
             "name": "betterde/response",
@@ -3916,6 +3870,52 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "betterde/comment",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/betterde/comment.git",
+                "reference": "8726e10a09e72ee4dadb39fba3a519ce86ffeb1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/betterde/comment/zipball/8726e10a09e72ee4dadb39fba3a519ce86ffeb1d",
+                "reference": "8726e10a09e72ee4dadb39fba3a519ce86ffeb1d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5|^6|^7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Betterde\\Comment\\Providers\\CommentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Betterde\\Comment\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/CommentHelper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "George",
+                    "email": "george@betterde.com"
+                }
+            ],
+            "description": "Add comment content to migration file",
+            "time": "2020-04-17T08:07:05+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.3.0",
