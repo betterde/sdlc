@@ -31,7 +31,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-	protected array $dontReport = [
+	protected $dontReport = [
 		HttpException::class,
 		ValidationException::class,
 		ModelNotFoundException::class,
@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-	protected array $dontFlash = [
+	protected $dontFlash = [
 		'password',
 		'password_confirmation',
 	];

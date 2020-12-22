@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
 /**
@@ -95,7 +96,7 @@ class User extends Authenticatable implements MustVerifyEmailContract, JWTSubjec
 	 *
 	 * Date: 2018/10/28
 	 * @author George
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @return BelongsToMany
 	 */
 	public function projects()
 	{
